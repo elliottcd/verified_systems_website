@@ -1,0 +1,297 @@
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --unc-blue:#4b9cd3;
+  --unc-navy:#13274f;
+  --unc-light:#e8f4fd;
+  --unc-mid:#1f6fa3;
+  --white:#ffffff;
+  --off:#f5f9fd;
+  --border:#c8e0f0;
+  --text:#13274f;
+  --muted:#2a5a7a;
+  --faint:#5a86a4;
+  --sans:'DM Sans',Arial,sans-serif;
+  --mono:'DM Mono','Courier New',monospace;
+  --serif:Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.65;min-height:100vh;overflow-x:hidden}
+
+nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:58px;background:var(--unc-navy);border-bottom:3px solid var(--unc-blue)}
+.logo{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--white);text-decoration:none;cursor:pointer}
+.logo span{color:var(--unc-blue)}
+nav ul{list-style:none;display:flex;gap:1.75rem}
+nav ul a{font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;cursor:pointer;transition:color .2s}
+nav ul a:hover,nav ul a.active{color:var(--white)}
+.nav-cta{font-size:13px;font-weight:500;background:var(--unc-blue);color:var(--white);padding:8px 18px;border-radius:4px;cursor:pointer;border:none;transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
+
+.page{display:none}
+.page.active{display:block}
+
+.hero-band{background:var(--unc-navy);padding:4rem 2rem 3rem}
+.hero-inner{max-width:860px;margin:0 auto}
+.hero-loc{display:inline-flex;align-items:center;gap:8px;background:rgba(75,156,211,0.18);border:1px solid rgba(75,156,211,0.35);border-radius:20px;padding:4px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--unc-blue);margin-bottom:1.5rem}
+.hero h1{font-family:var(--serif);font-size:clamp(2.4rem,5.5vw,4rem);font-weight:600;line-height:1.1;letter-spacing:-.02em;color:var(--white);margin-bottom:1rem}
+.hero h1 span{color:var(--unc-blue)}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,0.72);max-width:520px;margin-bottom:2rem;font-weight:300;line-height:1.75}
+.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-primary{font-size:14px;font-weight:500;background:var(--unc-blue);color:var(--white);padding:12px 24px;border-radius:4px;border:none;cursor:pointer;transition:opacity .2s}
+.btn-primary:hover{opacity:.85}
+.btn-ghost{font-size:14px;font-weight:500;background:transparent;color:var(--white);padding:12px 24px;border-radius:4px;border:1px solid rgba(255,255,255,0.35);cursor:pointer;transition:border-color .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.7)}
+
+.checks-band{background:var(--unc-blue);padding:1.1rem 2rem}
+.checks-inner{max-width:860px;margin:0 auto;display:flex;gap:2.5rem;flex-wrap:wrap}
+.check-item{display:flex;align-items:center;gap:.5rem;font-size:13px;color:var(--white);font-weight:500}
+.check-dot{width:18px;height:18px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.check-dot span{font-size:10px;color:var(--unc-blue);font-weight:700}
+
+section.body-section{max-width:860px;margin:0 auto;padding:4rem 2rem}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--unc-blue);margin-bottom:.5rem}
+h2.sh{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:600;letter-spacing:-.015em;color:var(--text);margin-bottom:.6rem;line-height:1.15}
+.sdesc{font-size:.95rem;color:var(--muted);margin-bottom:2rem;max-width:480px;line-height:1.75}
+hr.div{border:none;border-top:1px solid var(--border);margin:0}
+
+.services-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.svc{display:grid;grid-template-columns:52px 1fr auto;gap:1rem;align-items:start;padding:1.4rem 1.5rem;border-bottom:1px solid var(--border);background:var(--white);transition:background .2s}
+.svc:last-child{border-bottom:none}
+.svc:hover{background:var(--off)}
+.svc-num{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+.svc-body h3{font-size:15px;font-weight:600;margin-bottom:.3rem;color:var(--text)}
+.svc-body p{font-size:13px;color:var(--muted);line-height:1.65}
+.svc-price{font-family:var(--mono);font-size:12px;color:var(--unc-blue);white-space:nowrap;background:var(--unc-light);padding:4px 10px;border-radius:12px;border:1px solid var(--border)}
+
+.about-grid{display:grid;grid-template-columns:200px 1fr;gap:3rem;align-items:start}
+.about-card{background:var(--unc-navy);border-radius:12px;overflow:hidden}
+.about-card-top{height:180px;background:var(--unc-mid);display:flex;align-items:center;justify-content:center}
+.about-initials{width:72px;height:72px;border-radius:50%;background:var(--unc-blue);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:24px;font-weight:600;color:var(--white)}
+.about-card-body{padding:1rem}
+.about-card-name{font-size:15px;font-weight:600;color:var(--white);margin-bottom:.2rem}
+.about-card-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-bottom:.9rem}
+.about-tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:3px 9px;border-radius:3px;border:1px solid rgba(75,156,211,0.35);color:var(--unc-blue);background:rgba(75,156,211,0.1);margin:2px}
+.about-right p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.about-right p strong{color:var(--text);font-weight:600}
+.cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.5rem}
+.cred{background:var(--off);border:1px solid var(--border);border-radius:6px;padding:.9rem 1rem}
+.cred-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:.3rem}
+.cred-val{font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
+
+.contact-details{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem}
+.contact-detail{display:flex;gap:.75rem;align-items:flex-start}
+.cdot{width:30px;height:30px;border-radius:50%;background:var(--unc-light);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.clabel{font-size:14px;color:var(--muted);line-height:1.6}
+.clabel strong{display:block;font-weight:600;color:var(--text)}
+.email-block{background:var(--unc-light);border:1px solid var(--border);border-left:3px solid var(--unc-blue);border-radius:4px;padding:1rem 1.25rem;margin-top:1.5rem}
+.email-block-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:.3rem}
+.email-block-addr{font-size:16px;font-weight:600;color:var(--unc-mid)}
+
+footer{background:var(--unc-navy);border-top:3px solid var(--unc-blue);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.footer-logo{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--white)}
+.footer-logo span{color:var(--unc-blue)}
+.footer-right{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:.06em}
+
+@media(max-width:640px){
+  nav ul{display:none}
+  .about-grid{grid-template-columns:1fr}
+  .checks-inner{gap:1rem}
+  .cred-grid{grid-template-columns:1fr}
+}
+</style>
+
+<nav>
+  <span class="logo" onclick="show('home')">Verified <span>Systems</span></span>
+  <ul>
+    <li><a onclick="show('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="show('about')" id="nav-about">About</a></li>
+    <li><a onclick="show('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="show('contact')">Get a Quote</button>
+</nav>
+
+<div id="page-home" class="page active">
+  <div class="hero-band">
+    <div class="hero-inner">
+      <div class="hero-loc">📍 Chapel Hill, NC</div>
+      <div class="hero">
+        <h1>Custom PC Builds.<br><span>Done Right.</span></h1>
+        <p class="hero-sub">Spec'd, sourced, and assembled to your budget — by a local builder who repairs computers professionally and actually knows what's inside the machine.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="show('contact')">Get a Free Quote</button>
+          <button class="btn-ghost" onclick="show('about')">About Me</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checks-band">
+    <div class="checks-inner">
+      <div class="check-item"><div class="check-dot"><span>✓</span></div>Professional quality work</div>
+      <div class="check-item"><div class="check-dot"><span>✓</span></div>Local Chapel Hill pickup</div>
+      <div class="check-item"><div class="check-dot"><span>✓</span></div>Stress-tested before delivery</div>
+      <div class="check-item"><div class="check-dot"><span>✓</span></div>Same-day response</div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <section class="body-section">
+    <div class="eyebrow">What I offer</div>
+    <h2 class="sh">Services</h2>
+    <p class="sdesc">Three things, done well. No upselling, no junk parts, no runaround.</p>
+    <div class="services-list">
+      <div class="svc">
+        <div class="svc-num">01</div>
+        <div class="svc-body">
+          <h3>Custom PC Builds</h3>
+          <p>Tell me your budget and what you're using it for — gaming, school, work, creative — and I'll spec and build the right machine. I handle sourcing, assembly, cable management, and Windows setup.</p>
+        </div>
+        <div class="svc-price">From $300</div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">02</div>
+        <div class="svc-body">
+          <h3>Refurbished Computers</h3>
+          <p>I source used desktops and laptops, clean them up, test everything, and sell them at honest prices. Great option if you need a reliable machine without paying retail.</p>
+        </div>
+        <div class="svc-price">$80 – $600+</div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">03</div>
+        <div class="svc-body">
+          <h3>Used Parts</h3>
+          <p>GPUs, CPUs, RAM, SSDs, and more. All pulled from working systems or bought directly and verified. Condition is always described accurately — no surprises.</p>
+        </div>
+        <div class="svc-price">Varies</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div">
+
+  <section class="body-section" style="background:var(--off);max-width:100%;padding:3rem 2rem">
+    <div style="max-width:860px;margin:0 auto">
+      <div class="eyebrow">Every build</div>
+      <h2 class="sh">What's included</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.5rem">
+        <div style="background:var(--white);border:1px solid var(--border);border-top:3px solid var(--unc-blue);border-radius:6px;padding:1.25rem">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.4rem">Part Selection</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.65">Matched to your exact use case and budget — no filler parts.</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--border);border-top:3px solid var(--unc-blue);border-radius:6px;padding:1.25rem">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.4rem">Full Assembly</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.65">Cable management, thermal paste, BIOS setup, Windows installation included.</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--border);border-top:3px solid var(--unc-blue);border-radius:6px;padding:1.25rem">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.4rem">Stress Tested</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.65">Benchmarked and run through stability tests before it leaves my hands.</div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--border);border-top:3px solid var(--unc-blue);border-radius:6px;padding:1.25rem">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.4rem">Local Pickup</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.65">Meet in Chapel Hill. See it in person before you hand over any money.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="page-about" class="page">
+  <section class="body-section">
+    <div class="eyebrow">Who I am</div>
+    <h2 class="sh">About me</h2>
+    <div class="about-grid">
+      <div>
+        <div class="about-card">
+          <div class="about-card-top">
+            <div class="about-initials">E</div>
+          </div>
+          <div class="about-card-body">
+            <div class="about-card-name">Elliott</div>
+            <div class="about-card-sub">Chapel Hill, NC</div>
+            <div>
+              <span class="about-tag">PC Hardware</span>
+              <span class="about-tag">Networking</span>
+              <span class="about-tag">Cybersecurity</span>
+              <span class="about-tag">Custom Builds</span>
+            </div>
+          </div>
+        </div>
+        <div class="cred-grid">
+          <div class="cred">
+            <div class="cred-label">Experience</div>
+            <div class="cred-val">PC Repair Professional</div>
+          </div>
+          <div class="cred">
+            <div class="cred-label">Club</div>
+            <div class="cred-val">Cybersecurity Club President</div>
+          </div>
+          <div class="cred">
+            <div class="cred-label">This fall</div>
+            <div class="cred-val">NC State University, Engineering</div>
+          </div>
+          <div class="cred">
+            <div class="cred-label">Location</div>
+            <div class="cred-val">Chapel Hill, NC</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <p>Hey — I'm Elliott, a high school senior from Chapel Hill. I've been into computers for as long as I can remember: taking things apart, figuring out how they work, putting them back together. What started as a hobby turned into something I actually know how to do.</p>
+        <p>I repair computers professionally, which means I've seen the inside of more machines than most. That hands-on experience is what I bring to every build — I don't just follow a parts list, I understand why each component matters and how they work together.</p>
+        <p>I also run the <strong>cybersecurity club</strong> at my school, which has sharpened how I think about hardware at the system level — not just what a machine can do, but how it's built and secured.</p>
+        <p>Verified Systems is my way of building something real while I'm still in school. When you buy from me, you're getting someone who cares about getting it right — not a reseller flipping listings. I test everything myself, describe it accurately, and stand behind it.</p>
+        <p><strong>This fall I'm heading to NC State for engineering.</strong> I'll keep the business running — just with a Wolfpack ID in my wallet.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="page-contact" class="page">
+  <section class="body-section">
+    <div class="eyebrow">Get in touch</div>
+    <h2 class="sh">Let's talk.</h2>
+    <p class="sdesc" style="max-width:600px">Have a question, want a custom build quote, or looking to buy or sell hardware? Reach out directly — I respond same day most of the time.</p>
+
+    <div class="email-block">
+      <div class="email-block-label">Email</div>
+      <div class="email-block-addr">your.email@here.com</div>
+    </div>
+
+    <div class="contact-details">
+      <div class="contact-detail">
+        <div class="cdot">📍</div>
+        <div class="clabel"><strong>Chapel Hill, NC</strong>Local pickup available on most items.</div>
+      </div>
+      <div class="contact-detail">
+        <div class="cdot">⚡</div>
+        <div class="clabel"><strong>Same-day response</strong>Weekends included.</div>
+      </div>
+      <div class="contact-detail">
+        <div class="cdot">💳</div>
+        <div class="clabel"><strong>Cash · Venmo · Cash App</strong>No holds without a deposit.</div>
+      </div>
+      <div class="contact-detail">
+        <div class="cdot">📦</div>
+        <div class="clabel">Shipping available on select parts — just ask.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <span class="footer-logo">Verified <span>Systems</span></span>
+  <span class="footer-right">CHAPEL HILL, NC · © 2025</span>
+</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('nav ul a').forEach(a=>a.classList.remove('active'));
+  const el=document.getElementById('nav-'+id);
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
